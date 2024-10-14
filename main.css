@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    padding: 25px;
+    background-color: aliceblue;
+}
+#square{
+   
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
