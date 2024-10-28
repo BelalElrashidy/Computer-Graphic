@@ -11,9 +11,10 @@ function triangle(){
     }
 
     const vertexData = [
-       0.0, 0.5,    1.0, 0.0, 0.0,  
       -0.5, -0.5,   0.0,  0.0,1.0,  
-       0.5, -0.5,   0.0, 1.0, 0.0   
+      0.5, -0.5,    1.0, 0.0, 0.0,  
+       0.5, 0.5,   0.0, 1.0, 0.0  , 
+       -0.5, 0.5,   0.0, 1.0, 1.0   
     ];
 
     const triangleGeoBuffer = gl.createBuffer();
@@ -65,7 +66,7 @@ function triangle(){
 
     gl.useProgram(TriangleProgram);
 
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 }
 
 try {
