@@ -12,6 +12,16 @@ function sierpinskiTriangle(vertices, depth) {
     ...sierpinskiTriangle([ac, bc, c], depth - 1),
   ];
 }
+function circle(vertices, segments, radius) {
+  const points = [];
+  for (let i = 0; i < segments + 1; i++) {
+    const angle = (i / segments) * 2 * Math.PI;
+    const x = vertices[0] + radius * Math.cos(angle);
+    const y = vertices[1] + radius * Math.sin(angle);
+    points.push([x, y]);
+  }
+  return points;
+}
 
 function triangle() {
   const canvas = document.getElementById("square");
@@ -27,14 +37,15 @@ function triangle() {
     return;
   }
 
-  const vertices = sierpinskiTriangle(
-    [
-      [-1, -1, 1.0, 0.0, 0.0],
-      [1, -1, 0.0, 1.0, 0.0],
-      [0, 1, 0.0, 0.0, 1.0],
-    ],
-    3
-  );
+  // const vertices = sierpinskiTriangle(
+  //   [
+  //     [-1, -1, 1.0, 0.0, 0.0],
+  //     [1, -1, 0.0, 1.0, 0.0],
+  //     [0, 1, 0.0, 0.0, 1.0],
+  //   ],
+  //   3
+  // );
+  const vertices = circle([0.0, 0.0], 100, 0.5);
 
   const triangleGeoBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, triangleGeoBuffer);
@@ -46,18 +57,18 @@ function triangle() {
 
   const vertexShaderSourceCode = `
     attribute vec2 aPosition;
-    attribute vec3 aColor;
-    varying vec3 frag_color;
+    // attribute vec3 aColor;
+    // varying vec3 frag_color;
     void main() {
         gl_Position = vec4(aPosition, 0.0, 1.0);
-        frag_color = aColor;
+        // frag_color = aColor;
     }`;
 
   const fragmentShaderSourceCode = `
     precision mediump float;
-    varying vec3 frag_color;
+    // varying vec3 frag_color;
     void main() {
-        gl_FragColor = vec4(frag_color, 1.0);
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
     }`;
 
   function createShader(gl, sourceCode, type) {
@@ -117,25 +128,25 @@ function triangle() {
     2,
     gl.FLOAT,
     false,
-    5 * Float32Array.BYTES_PER_ELEMENT,
+    0,
     0
   );
 
-  const vertexColorAttributeLocation = gl.getAttribLocation(
-    TriangleProgram,
-    "aColor"
-  );
-  gl.enableVertexAttribArray(vertexColorAttributeLocation);
-  gl.vertexAttribPointer(
-    vertexColorAttributeLocation,
-    3,
-    gl.FLOAT,
-    false,
-    5 * Float32Array.BYTES_PER_ELEMENT,
-    2 * Float32Array.BYTES_PER_ELEMENT
-  );
+  // const vertexColorAttributeLocation = gl.getAttribLocation(
+  //   TriangleProgram,
+  //   "aColor"
+  // );
+  // gl.enableVertexAttribArray(vertexColorAttributeLocation);
+  // gl.vertexAttribPointer(
+  //   vertexColorAttributeLocation,
+  //   3,
+  //   gl.FLOAT,
+  //   false,
+  //   5 * Float32Array.BYTES_PER_ELEMENT,
+  //   2 * Float32Array.BYTES_PER_ELEMENT
+  // );
 
-  gl.drawArrays(gl.TRIANGLES, 0, vertices.length);
+  gl.drawArrays(gl.LINE_LOOP, 0, vertices.length);
 }
 
 try {
