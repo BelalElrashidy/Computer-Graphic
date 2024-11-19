@@ -5,8 +5,9 @@ try {
   // drawGradientTriangle();
 //   drawSquare();
   // drawSierpinskiTriangle();
-  drawCircle('square',true);
-  drawCircle('circle',false);
+  // drawCircle('square',true);
+  // drawCircle('circle',false);
+  rotatingSquare();
 } catch (e) {
   alert(`Uncaught JavaScript exception: ${e}`);
 }
