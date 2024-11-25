@@ -1,6 +1,6 @@
 "use strict";
 let thetaLoc ;
-
+let x =0.01;
 let theta = 0;
 
 function rotatingSquare() {
@@ -54,8 +54,8 @@ function rotatingSquare() {
 }   function render(gl) {
     setInterval( function() {
         gl.clear( gl.COLOR_BUFFER_BIT );
-    
-        theta -= .01;
+        
+        theta += x;
         gl.uniform1f( thetaLoc, theta );
     
         gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
