@@ -1,10 +1,7 @@
 "use strict";
-let thetaLoc ;
-let x =0.01;
-let theta = 0;
 
 function rotatingSquare() {
-    const gl = setupGL("square");
+    gl = setupGL("square");
     if (!gl) return;
     const vertexShaderSource = `#version 300 es
         in vec2 aPosition;
@@ -49,17 +46,16 @@ function rotatingSquare() {
 
     thetaLoc = gl.getUniformLocation( program, "theta" );
     // setInterval( () => {
-        render(gl);
+        render();
     // }, 100);
-}   function render(gl) {
-    setInterval( function() {
-        gl.clear( gl.COLOR_BUFFER_BIT );
-        
-        theta += x;
-        gl.uniform1f( thetaLoc, theta );
+}   
+function render() {
+    gl.clear( gl.COLOR_BUFFER_BIT );
     
-        gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
-    
-        // window.requestAnimationFrame(render);
-    },100)
+    thetaS += x;
+    gl.uniform1f( thetaLoc, thetaS );
+
+    gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
+
+    window.requestAnimationFrame(render);
 }

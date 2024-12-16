@@ -1,3 +1,8 @@
+let thetaLoc, theta = [0, 0, 0];
+let axis = 0; // 0: X, 1: Y, 2: Z
+let x =0.01;
+let thetaS = 0;
+let gl;
 
 try {
   // Uncomment the shape you want to draw
@@ -7,7 +12,8 @@ try {
   // drawSierpinskiTriangle();
   // drawCircle('square',true);
   // drawCircle('circle',false);
-  rotatingSquare();
+  // rotatingSquare();
+  rotatingCube();
 } catch (e) {
   alert(`Uncaught JavaScript exception: ${e}`);
 }
