@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/gl-matrix-min.js"></script>
+    
+
     <title>lab 1</title>
   </head>
   <body>
@@ -17,13 +21,39 @@
     <button onclick="move()">Move</button>
     <button onclick="SlowMotion()">Slow motion</button>
     <button onclick="stop()">Stop</button>
+    <div id="controls">
+      <button id="themeToggle">Switch Theme</button>
+      <button id="move">Move Car</button>
+      <button id="move-back">Move Backward</button>
+      
+      <div>
+          <label for="lightX">Light Direction X:</label>
+          <input type="range" id="lightX" min="-1" max="1" step="0.01" value="0.5">
+          <span id="lightXValue">0.50</span>
+      </div>
+      <div>
+          <label for="lightY">Light Direction Y:</label>
+          <input type="range" id="lightY" min="-1" max="1" step="0.01" value="1.0">
+          <span id="lightYValue">1.00</span>
+      </div>
+      <div>
+          <label for="lightZ">Light Direction Z:</label>
+          <input type="range" id="lightZ" min="-1" max="1" step="0.01" value="0.5">
+          <span id="lightZValue">0.50</span>
+      </div>
+  </div>
+
     <script src="utils.js"></script>
-    <script src="Triangles.js"></script>
-    <script src="square.js"></script>
-    <script src="sierpinski.js"></script>
-    <script src="circle.js"></script>
-    <script src="rotating-square.js"></script>
-    <script src="rotating-cube.js"></script>
+    <!-- <script src="Triangles.js"></script> -->
+    <!-- <script src="square.js"></script> -->
+    <!-- <script src="sierpinski.js"></script> -->
+    <!-- <script src="circle.js"></script> -->
+    <!-- <script src="rotating-square.js"></script> -->
+    <!-- <script src="rotating-cube.js"></script> -->
+    <script src="Scene-utils.js"></script>
+    <script src="Tree.js"></script>
+    <script src="Adjust-circle.js"></script>
+    <script src="Scene.js"></script>
     <script src="main.js"></script>
     <!-- <script src="main.js"></script> -->
   </body>

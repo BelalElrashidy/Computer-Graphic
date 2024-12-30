@@ -2,7 +2,9 @@
 
 function rotatingSquare() {
     gl = setupGL("square");
-    if (!gl) return;
+    if (!gl) {
+        console.error("WebGL context could not be initialized.");
+    }
     const vertexShaderSource = `#version 300 es
         in vec2 aPosition;
         uniform float theta;
@@ -33,29 +35,36 @@ function rotatingSquare() {
 
 
     // Load the data into the GPU
-    var bufferId = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-    gl.bufferData( gl.ARRAY_BUFFER, new Float32Array(vertices.flat()), gl.STATIC_DRAW );
+    const bufferId = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
-    // Associate out shader variables with our data buffer
-    var vPosition = gl.getAttribLocation( program, "aPosition" );
-    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vPosition );
+    // Associate our shader variables with our data buffer
+    const vPosition = gl.getAttribLocation(program, "aPosition");
+    gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vPosition);
+
     gl.useProgram(program);
-    
 
-    thetaLoc = gl.getUniformLocation( program, "theta" );
-    // setInterval( () => {
-        render();
-    // }, 100);
+    // Get uniform location
+    thetaLoc = gl.getUniformLocation(program, "theta");
+    if (thetaLoc === null) {
+        console.error("Uniform 'theta' not found.");
+        return;
+    }
+
+    // Initialize thetaS and x
+    thetaS = 0.0;
+    x = 0.01;
+    function render() {
+        gl.clear(gl.COLOR_BUFFER_BIT);
+    
+        thetaS += x; // Increment the rotation angle
+        gl.uniform1f(thetaLoc, thetaS); // Correctly set the theta uniform
+    
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    
+        window.requestAnimationFrame(render);
+    }
+    render()
 }   
-function render() {
-    gl.clear( gl.COLOR_BUFFER_BIT );
-    
-    thetaS += x;
-    gl.uniform1f( thetaLoc, thetaS );
-
-    gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
-
-    window.requestAnimationFrame(render);
-}
